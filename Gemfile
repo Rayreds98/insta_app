@@ -12,6 +12,14 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bcrypt', '3.1.7'
+gem "sass-rails", "~>5.0"
+gem "bootstrap-sass", "~>3.3.6"
+gem "jquery-rails"
+gem "jquery-ui-rails"
+gem 'pry-rails'
+gem 'pry-byebug'
+gem 'pry-doc'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
