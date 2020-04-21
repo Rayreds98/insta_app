@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   get '/help' => 'static_pages#help'
 
   resources :contacts, only: [:new, :index, :show]
-
+  resources :users
 
 end
