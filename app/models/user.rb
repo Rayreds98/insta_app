@@ -24,7 +24,7 @@ class User < ApplicationRecord
   # 永続的cookieをユーザートークン(remember_digest)としてDBに保存する
   def remember
     self.remember_token = User.new_token
-    udpate_attribute(:remember_digest, User.digest(remember_token))
+    update_attribute(:remember_digest, User.digest(remember_token))
   end
 
   # 渡されたトークンがDBのremember_digestと一致したらtrueを返す
