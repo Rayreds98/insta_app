@@ -17,8 +17,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    binding.pry
     if @user.save
+      log_in @user
       flash[:notice] = 'アカウント登録完了'
       redirect_to root_path
     else
@@ -32,7 +32,6 @@ class UsersController < ApplicationController
       flash[:notice] = 'アカウント編集完了'
       redirect_to @user
     else
-      binding.pry
       flash.now[:error] = @user.errors.full_messages.to_sentence
       render 'edit'
     end
