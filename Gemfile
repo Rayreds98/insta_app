@@ -20,6 +20,9 @@ gem "jquery-ui-rails"
 gem 'pry-rails'
 gem 'pry-byebug'
 gem 'pry-doc'
+gem 'faker', '1.4.2'
+gem 'will_paginate', '3.1.7'
+gem 'bootstrap-will_paginate', '0.0.10'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
