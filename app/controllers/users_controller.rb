@@ -20,8 +20,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      log_in @user
-      flash[:notice] = 'アカウント登録完了'
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
     else
       flash.now[:error] = @user.errors.full_messages.to_sentence

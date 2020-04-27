@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
 
-  resources :contacts, only: [:new, :index, :show]
   resources :users
+  resources :contacts, only: [:new, :index, :show]
+  resources :account_activations, only: [:edit]
 
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: '/letter_opener'
+  end
 end
