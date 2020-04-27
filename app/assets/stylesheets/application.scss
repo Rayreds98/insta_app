@@ -17,6 +17,10 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.alert {
+  margin-top: 10px;
+}
+
 header.navbar {
   border-bottom: solid 2px #F5F5F5;
 }
