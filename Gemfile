@@ -23,6 +23,8 @@ gem 'pry-doc'
 gem 'faker', '1.4.2'
 gem 'will_paginate', '3.1.7'
 gem 'bootstrap-will_paginate', '0.0.10'
+gem 'carrierwave'
+gem 'mini_magick', '~> 4.8'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
