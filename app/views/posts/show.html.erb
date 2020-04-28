@@ -1,8 +1,16 @@
 <div class='row'>
   <div class="submit-form col-md-6 col-md-offset-3">
     <h2 class='page-title'>アカウントを作成</h2>
-    <div class="jumbotron">
-      <%= @post.content %>
+    <div id='show-post'>
+      <%= image_tag(@post.thumbnail('420x420^', '420x420+0+0')) if @post.image.attached? %>
     </div>
+    <div class="jumbotron">
+      <p><%= @post.user.name %></p>
+      <p><%= @post.content %></p>
+    </div>
+  </div>
+  <div class='back-post-link' id='edit-post-link'>
+    <b><%= link_to 'edit', edit_post_path(@post), class: 'btn btn-primary' %></b>
+    <b><%= link_to 'back', posts_path, class: 'btn btn-primary' %></b>
   </div>
 </div>
