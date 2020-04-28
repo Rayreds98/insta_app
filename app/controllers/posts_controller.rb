@@ -49,7 +49,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.fetch(:post, {}).permit!
+    params.require(:post).permit!
   end
 
 end

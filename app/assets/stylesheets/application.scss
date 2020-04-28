@@ -17,12 +17,17 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+body {
+  background-color: #FAFAFA;
+}
+
 .alert {
   margin-top: 10px;
 }
 
 header.navbar {
   border-bottom: solid 2px #F5F5F5;
+  background-color: #FFFFFF;
 }
 
 ul.navbar-nav li {
