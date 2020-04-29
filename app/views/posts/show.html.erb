@@ -5,7 +5,7 @@
       <%= image_tag(@post.thumbnail('420x420^', '420x420+0+0')) if @post.image.attached? %>
     </div>
     <div class="jumbotron">
-      <p><%= @post.user.name %></p>
+      <p><%= @post.user.username %></p>
       <p><%= @post.content %></p>
     </div>
   </div>
