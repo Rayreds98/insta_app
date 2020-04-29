@@ -1,17 +1,14 @@
 <div class='row'>
   <div class='col-md-6 col-md-offset-3'>
     <h2 class='page-title'>アカウント詳細</h2>
-    <% flash.each do |type, value| %>
-      <%= value %>
-    <% end %>
     <div>
-      <b>name:</b>
-      <%= @user.name%>
+      <p><%= @user.username %></p>
     </div>
-    <div>
-    <b>email:</b>
-    <%= @user.email%>
+    <div id='show-user'>
+      <%= image_tag @user.thumbnail('200x200^', '200x200+0+0'), class: "rounded-circle" if @user.profile.icon.attached? %>
     </div>
-    <%= link_to 'edit', edit_user_path %>
+      <p><%= @user.profile.name %></p>
+      <p><%= @user.profile.biography %></p>
+    <%= link_to 'edit', edit_profile_path %>
   </div>
 </div>

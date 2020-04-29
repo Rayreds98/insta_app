@@ -19,9 +19,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.build_profile
     if @user.save
       @user.send_activation_email
       flash[:notice] = "Please check your email to activate your account."
+      binding.pry
       redirect_to root_url
     else
       flash.now[:error] = @user.errors.full_messages.to_sentence
@@ -52,7 +54,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end
 
   def logged_in_user
