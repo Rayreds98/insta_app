@@ -4,9 +4,16 @@
 
     <%= form_with(model: @profile, local: true, method: :patch) do |f| %>
 
-      <div class='field'>
-        <%= f.label :icon %><br />
-        <%= f.file_field :icon %>
+      <div id='user-image'>
+        <% if @user.profile.icon.attached? %>
+          <%= image_tag @user.thumbnail('200x200^', '200x200+0+0'), class: "img-circle"%>
+        <% else %>
+          <%= image_tag('no-image.png')%>
+        <% end %>
+      </div>
+
+      <div class='field-image'>
+        <%= f.file_field :icon, class: 'image-form' %>
       </div>
 
       <div class='form-group'>
@@ -17,11 +24,6 @@
       <div class='form-group'>
         <%= f.label :biography %>
         <%= f.text_area :biography, class: 'form-control' %>
-      </div>
-
-      <div class='form-group'>
-        <%= f.label :birthday %>
-        <%= f.date_select :birthday %>
       </div>
 
       <div class='action'>

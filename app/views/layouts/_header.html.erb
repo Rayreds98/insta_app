@@ -3,13 +3,14 @@
     <%= link_to 'Insta App', root_path, id: 'logo' %>
     <nav>
       <ul class='nav navbar-nav navbar-right'>
-        <li><%= link_to 'Home', root_path %></li>
         <% if logged_in? %>
-          <li><%= link_to 'Posts', posts_path %></li>
+          <li><%= link_to 'Home', root_path %></li>
+          <li><%= link_to 'Search', posts_path %></li>
           <li><%= link_to 'Notify', '#' %></li>
           <li><%= link_to 'Profile', user_path(current_user) %></li>
           <li><%= link_to 'Log out', logout_path, method: :delete %></li>
         <% else %>
+          <li><%= link_to 'Search', posts_path %></li>
           <li><%= link_to 'Log in', login_path %></li>
           <li><%= link_to 'Sign up', new_user_path %></li>
         <% end %>

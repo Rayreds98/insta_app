@@ -1,0 +1,10 @@
+<div id='new-post-link'>
+  <b><%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %></b>
+</div>
+<div class='row'>
+  <% @posts.each do |post|%>
+    <div class='col-md-4 post-image'>
+      <%= link_to image_tag(post.thumbnail('320x320^', '320x320+0+0')), post_path(post) if post.image.attached? %>
+    </div>
+  <% end %>
+</div>
