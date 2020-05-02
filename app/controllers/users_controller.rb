@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @posts = @user.posts
   end
 
   def edit
@@ -23,7 +24,6 @@ class UsersController < ApplicationController
     if @user.save
       @user.send_activation_email
       flash[:notice] = "Please check your email to activate your account."
-      binding.pry
       redirect_to root_url
     else
       flash.now[:error] = @user.errors.full_messages.to_sentence
