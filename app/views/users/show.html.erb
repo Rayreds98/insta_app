@@ -2,12 +2,12 @@
   <div class='col-md-8 col-md-offset-1'>
     <div id='profile'>
       <% if @user.profile.icon.attached? %>
-        <%= image_tag @user.thumbnail('200x200^', '200x200+0+0'), class: "img-circle"%>
+        <%= image_tag @user.thumbnail('180x180^', '180x180+0+0'), class: "img-circle"%>
       <% else %>
-        <%= image_tag('no-image.png')%>
+        <%= image_tag 'no-image.png', :size => '180x180', class: 'img-circle' %>
       <% end %>
       <div class=col-md-2></div>
-      <div id='user-profile' class='col col-md-offset-2'>
+      <div id='user-profile' class='col col-md-offset-1'>
         <div>
           <div class='user-upper'><h3><%= @user.username %></h3></div>
           <div class='user-upper setting'><p><%= link_to 'プロフィールを編集', edit_profile_path, class: 'btn btn-default btn-sm' %></p></div>
