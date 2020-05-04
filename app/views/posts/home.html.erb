@@ -9,7 +9,7 @@
             <% else %>
               <%= image_tag 'no-image.png', :size => '40x40', class: 'img-circle' %>
             <% end %>
-            <b><%= link_to post.user.username, user_path(post.user), :style=>"color:black;" %></b>
+            <b><%= link_to post.user.username, user_path(post.user), :style=>"color:black;" , class: 'username'%></b>
             <%= link_to image_tag('setting.png', :size => '40x40'), user_path(post.user), class: 'pull-right' %>
           </header>
           <%= link_to image_tag(post.thumbnail('680x680^', '680x680+0+0')), post_path(post) if post.image.attached? %>
