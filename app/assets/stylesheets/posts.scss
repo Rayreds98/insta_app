@@ -27,3 +27,66 @@
   text-align: center;
   margin: 15px 0px;
 }
+
+.posts-feed {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .post-feed {
+    margin-bottom: 50px;
+    border: solid 1px #DDDDDD;
+
+    .post-header {
+      margin: 10px 10px 10px 15px;
+      background-color: #FFFFFF;
+    }
+
+    .post-detail {
+      margin: 15px 15px 15px 15px;
+
+      .post-info {
+        margin: 5px 0px 10px 0px;
+      }
+
+      .post-comment {
+        border-top: solid 1px #DDDDDD;
+
+        .comment {
+          display: inline-block;
+          margin-top: 10px;
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}
+
+// Homeサイドバー
+.sidebar-nav {
+  width: 300px;
+  position: static;
+  .profile {
+    display: inline-block;
+    margin-top: 40px;
+  }
+  .profile.username {
+    margin-left: 20px;
+  }
+  .users{
+    margin-top: 20px;
+    border: solid 1px #DDDDDD;
+    background-color: #FFFFFF;
+    .user-menu {
+      display: inline-block;
+      margin: 10px 10px 0px 15px;
+    }
+    .user-list {
+      .user {
+        display: inline-block;
+        margin: 10px 10px 10px 15px;
+      }
+    }
+  }
+}

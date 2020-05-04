@@ -2,7 +2,9 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def home
-    @posts = Post.all
+    @posts = Post.all.order('created_at desc')
+    @users = User.limit(5)
+    @favorite = current_user
   end
 
   def index
@@ -25,6 +27,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @favorite = current_user.favorites.find_by(post_id: @post.id)
   end
 
   def edit

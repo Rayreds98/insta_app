@@ -9,7 +9,6 @@ class ProfilesController < ApplicationController
   def update
     if @profile.update_attributes(profile_params)
       flash[:success] = 'Profile was successfully updated.'
-      binding.pry
       redirect_to @user
     else
       flash.now[:error] = @profile.errors.full_messages.to_sentence
