@@ -10,12 +10,28 @@
       <div id='user-profile' class='col col-md-offset-1'>
         <div>
           <div class='user-upper'><h3><%= @user.username %></h3></div>
-          <div class='user-upper setting'><p><%= link_to 'プロフィールを編集', edit_profile_path, class: 'btn btn-default btn-sm' %></p></div>
+          <% unless current_user == @user %>
+          <div class='user-upper follow'>
+            <% if current_user.following?(@user) %>
+              <%= form_with(scope: :relationship, url:relationship_path, method: :delete, local: true) do |f| %>
+                <%= hidden_field_tag :followed_id,@user.id %>
+                <%= f.submit 'Unfollow', class: 'btn btn-default btn-sm' %>
+              <% end %>
+            <% else %>
+              <%= form_with(scope: :relationship, url:relationships_path, local: true) do |f| %>
+                <%= hidden_field_tag :followed_id,@user.id %>
+                <%= f.submit 'Follow', class: 'btn btn-primary btn-sm' %>
+              <% end %>
+            <% end %>
+          </div>
+          <% else %>
+            <div class='user-upper setting'><p><%= link_to 'プロフィールを編集', edit_profile_path, class: 'btn btn-default btn-sm' %></p></div>
+          <% end %>
         </div>
         <div>
-          <div class='user-middle'>投稿<%= @user.posts.size %>件</div>
-          <div class='user-middle'>フォロワー</div>
-          <div class='user-middle'>フォロー</div>
+          <div class='user-middle'>投稿<b><%= @user.posts.size %></b>件</div>
+          <div class='user-middle follow'><b><%= link_to "フォロワー#{@user.passive_relationships.size}", followers_path, :style=>"color:black;" %>人</b></div>
+          <div class='user-middle follow'><b><%= link_to "フォロー#{@user.active_relationships.size}", following_path, :style=>"color:black;" %>人</b></div>
         </div>
         <div class='profile-bio'>
           <p><%= @user.profile.name %></p>
