@@ -34,13 +34,14 @@
   flex-direction: column;
   align-items: center;
 
+
   .post-feed {
     margin-bottom: 50px;
     border: solid 1px #DDDDDD;
+    background-color: #FFFFFF;
 
     .post-header {
       margin: 10px 10px 10px 15px;
-      background-color: #FFFFFF;
 
       .username {
         margin-left: 15px;
@@ -57,10 +58,13 @@
       .post-comment {
         border-top: solid 1px #DDDDDD;
 
-        .comment {
-          display: inline-block;
-          margin-top: 10px;
-          opacity: 0.5;
+        .comment-form {
+          margin-top: 15px;
+        }
+
+        .submit-btn {
+          margin-top: 15px;
+          margin-bottom: 10px;
         }
       }
     }

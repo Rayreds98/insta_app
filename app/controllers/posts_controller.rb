@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   def home
     @posts = Post.all.order('created_at desc')
     @users = User.limit(5)
+    @comment = Comment.new
   end
 
   def index
@@ -27,6 +28,7 @@ class PostsController < ApplicationController
 
   def show
     @favorite = current_user.favorites.find_by(post_id: @post.id)
+    @comments = @post.comments
   end
 
   def edit

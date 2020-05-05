@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :keeps, dependent: :destroy
   has_many :keep_posts, through: :keeps, source: :post
+  has_many :comments, dependent: :destroy
 
 
   attr_accessor :remember_token, :activation_token, :reset_token
