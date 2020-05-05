@@ -3,6 +3,11 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorite_posts, through: :favorites, source: :post
+  has_many :active_relationships, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
+  has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest
@@ -70,6 +75,21 @@ class User < ApplicationRecord
 
   def thumbnail(resize, crop)
     return self.profile.icon.variant(combine_options:{resize:resize,crop:crop,gravity: :center}).processed
+  end
+
+  def follow(other_user)
+    unless self == other_user
+      self.active_relationships.find_or_create_by(followed_id: other_user.id)
+    end
+  end
+
+  def unfollow(other_user)
+    relationship = self.active_relationships.find_by(followed_id: other_user.id)
+    relationship.destroy if relationship
+  end
+
+  def following?(other_user)
+    self.following.include?(other_user)
   end
 
   private

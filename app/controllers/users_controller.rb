@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.paginate(page: params[:page], per_page: 15)
   end
 
   def new
@@ -45,6 +45,14 @@ class UsersController < ApplicationController
     @user.destroy
     flash[:notice] = 'アカウントを削除しました'
     redirect_to users_url
+  end
+
+  def following
+    @following = current_user.following.paginate(page: params[:page], per_page: 15)
+  end
+
+  def followers
+    @followers = current_user.followers.paginate(page: params[:page], per_page: 15)
   end
 
   private

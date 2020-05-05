@@ -54,6 +54,9 @@
 
   <div class='col-md-4'>
     <div class='sidebar-nav affix' >
+      <div id='new-post-link'>
+        <b><%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %></b>
+      </div>
       <div class=profile>
         <% if current_user.profile.icon.attached? %>
           <%= image_tag current_user.thumbnail('50x50^', '50x50+0+0'), class: "img-circle"%>
@@ -61,7 +64,7 @@
           <%= image_tag 'no-image.png', :size => '50x50', class: 'img-circle' %>
         <% end %>
         <div class='profile username'>
-          <b><%= current_user.username %></b>
+          <b><%= link_to current_user.username, user_path(current_user), :style=>"color:black;" %></b>
         </div>
       </div>
       <div class='users'>
