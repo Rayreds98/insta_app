@@ -28,11 +28,6 @@
   margin-left: 40px;
 }
 
-.profile_bar {
-  margin-top: 20px;
-  border-top: solid 1px #DDDDDD;
-}
-
 .profile-bio {
   margin-top: 10px;
 }
@@ -51,6 +46,19 @@
 
 .profile-setting {
   display: inline-block;
+}
+
+.profile_bar {
+  margin-top: 20px;
+  border-top: solid 1px #DDDDDD;
+
+  .profile-nav {
+    margin-top: 15px;
+
+    .nav{
+      text-align: center;
+    }
+  }
 }
 
 // user一覧

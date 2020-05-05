@@ -15,14 +15,18 @@
           <%= link_to image_tag(post.thumbnail('680x680^', '680x680+0+0')), post_path(post) if post.image.attached? %>
           <div class='post-detail'>
             <div class='post-action'>
-              <% if Favorite.exists?(user_id:current_user.id,post_id:post.id) %>
+              <% if Favorite.exists?(user_id: current_user.id, post_id: post.id) %>
                 <%= link_to 'いいね解除', post_favorites_path(post), method: :delete %>
               <% else %>
                 <%= link_to 'いいね', post_favorites_path(post), method: :post %>
               <% end %>
               <%= link_to 'コメント', '#' %>
               <%= link_to 'DM', '#' %>
-              <%= link_to '保存', '#' , class: 'pull-right' %>
+              <% if Keep.exists?(user_id: current_user.id, post_id: post.id) %>
+                <%= link_to '保存解除', post_keeps_path(post), method: :delete , class: 'pull-right' %>
+              <% else %>
+                <%= link_to '保存', post_keeps_path(post), method: :post , class: 'pull-right' %>
+              <% end %>
             </div>
             <div class='post-info'>
               <% if post.favorites.present? %>
