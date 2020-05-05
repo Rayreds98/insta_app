@@ -4,7 +4,6 @@ class PostsController < ApplicationController
   def home
     @posts = Post.all.order('created_at desc')
     @users = User.limit(5)
-    @favorite = current_user
   end
 
   def index

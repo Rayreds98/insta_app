@@ -12,14 +12,19 @@ Rails.application.routes.draw do
   get '/following' => 'users#following'
   get '/followers' => 'users#followers'
 
-  resources :users
   resources :profiles, only: [:create, :edit, :update]
   resources :contacts, only: [:new, :index, :show]
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :relationships, only: [:create, :destroy]
+
+  resources :users do
+    get '/keeps' => 'keeps#index'
+  end
+
   resources :posts do
     resource :favorites, only: [:create, :destroy]
+    resource :keeps, only: [:create, :destroy]
   end
 
   if Rails.env.development?
