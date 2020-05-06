@@ -1,0 +1,93 @@
+.page-title {
+  text-align: center;
+  margin: 30px;
+}
+
+.submit-btn {
+  margin-top: 10px;
+}
+
+#profile {
+  margin-top: 30px;
+}
+
+#user-profile {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.user-upper {
+  display: inline-block;
+}
+
+.user-middle {
+  display: inline-block;
+}
+
+.user-middle.follow {
+  margin-left: 40px;
+}
+
+.profile-bio {
+  margin-top: 10px;
+}
+
+.user-post {
+  margin-top: 30px;
+}
+
+.follow {
+  margin-left: 20px;
+}
+
+.setting {
+  margin-left: 20px;
+}
+
+.profile-setting {
+  display: inline-block;
+}
+
+.profile_bar {
+  margin-top: 20px;
+  border-top: solid 1px #DDDDDD;
+
+  .profile-nav {
+    margin-top: 15px;
+
+    .nav{
+      text-align: center;
+    }
+  }
+}
+
+// user一覧
+.users {
+  margin-top: 80px;
+
+  .users-list {
+    background-color: #FFFFFF;
+
+    .user-element {
+      padding: 15px 0px 0px 15px;
+
+      .user {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .user.info {
+        margin-left: 10px;
+      }
+
+      .user.follow {
+        margin-right: 20px;
+        margin-top: 10px;
+      }
+    }
+
+    .user-paginate {
+      margin-left: 10px;
+    }
+  }
+}

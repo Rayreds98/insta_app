@@ -1,0 +1,56 @@
+<div class='row'>
+  <div class='col-md-8 col-md-offset-1'>
+    <div id='profile'>
+      <% if @user.profile.icon.attached? %>
+        <%= image_tag @user.thumbnail('180x180^', '180x180+0+0'), class: "img-circle"%>
+      <% else %>
+        <%= image_tag 'no-image.png', :size => '180x180', class: 'img-circle' %>
+      <% end %>
+      <div class=col-md-2></div>
+      <div id='user-profile' class='col col-md-offset-1'>
+        <div>
+          <div class='user-upper'><h3><%= @user.username %></h3></div>
+          <% unless current_user == @user %>
+          <div class='user-upper follow'>
+            <% if current_user.following?(@user) %>
+              <%= form_with(scope: :relationship, url:relationship_path, method: :delete, local: true) do |f| %>
+                <%= hidden_field_tag :followed_id,@user.id %>
+                <%= f.submit 'Unfollow', class: 'btn btn-default btn-sm' %>
+              <% end %>
+            <% else %>
+              <%= form_with(scope: :relationship, url:relationships_path, local: true) do |f| %>
+                <%= hidden_field_tag :followed_id,@user.id %>
+                <%= f.submit 'Follow', class: 'btn btn-primary btn-sm' %>
+              <% end %>
+            <% end %>
+          </div>
+          <% else %>
+            <div class='user-upper setting'><p><%= link_to 'プロフィールを編集', edit_profile_path(@user), class: 'btn btn-default btn-sm' %></p></div>
+          <% end %>
+        </div>
+        <div>
+          <div class='user-middle'>投稿<b><%= @user.posts.size %></b>件</div>
+          <div class='user-middle follow'><b><%= link_to "フォロワー#{@user.passive_relationships.size}", followers_path, :style=>"color:black;" %>人</b></div>
+          <div class='user-middle follow'><b><%= link_to "フォロー#{@user.active_relationships.size}", following_path, :style=>"color:black;" %>人</b></div>
+        </div>
+        <div class='profile-bio'>
+          <p><%= @user.profile.name %></p>
+          <p><%= @user.profile.biography %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='col-md-12 profile_bar'>
+    <div class='col-md-8 col-md-offset-2 profile-nav'>
+      <div class='col-md-3 nav'><%= link_to '投稿', user_path(@user), :style=>"color:black;" %></div>
+      <div class='col-md-3 nav'>IGTV</div>
+      <div class='col-md-3 nav'><%= link_to '保存', user_keeps_path(@user), :style=>"color:black;" %></div>
+      <div class='col-md-3 nav'>タグづけされている人</div>
+    </div>
+    <% @keeps.each do |post|%>
+      <div class='col-md-4 user-post'>
+        <%= link_to image_tag(post.thumbnail('320x320^', '320x320+0+0')), post_path(post) if post.image.attached? %>
+      </div>
+    <% end %>
+  </div>
+</div>

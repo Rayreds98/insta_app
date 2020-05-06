@@ -1,0 +1,26 @@
+<header class='navbar navbar-fixed-top'>
+  <div class='container'>
+    <%= link_to 'Insta App', home_path, id: 'logo' %>
+    <nav>
+      <ul class='nav navbar-nav navbar-right'>
+        <% if logged_in? %>
+          <li><%= link_to (image_tag 'home.png', :size => '23x23'), home_path %></li>
+          <li><%= link_to (image_tag 'message.png', :size => '23x23'), home_path %></li>
+          <li><%= link_to (image_tag 'search.png', :size => '22x22'), posts_path, class: 'search' %></li>
+          <li><%= link_to (image_tag 'heart.png', :size => '20x20'), home_path, class: 'heart' %></li>
+          <li>
+          </li>
+          <% if current_user.profile.icon.attached? %>
+            <li><%= link_to (image_tag current_user.thumbnail('25x25^', '25x25+0+0'), class: "img-circle"), user_path(current_user) %></li>
+          <% else %>
+            <li><%= link_to (image_tag 'no-image.png', :size => '40x40', class: 'img-circle'), user_path(current_user) %></li>
+          <% end %>
+        <% else %>
+          <li><%= link_to 'Search', posts_path %></li>
+          <li><%= link_to 'Log in', login_path %></li>
+          <li><%= link_to 'Sign up', new_user_path %></li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>

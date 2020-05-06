@@ -1,0 +1,139 @@
+<div class='row'>
+  <div class='col-md-8'>
+    <div class='posts-feed'>
+      <% @posts.each do |post|%>
+        <article class='post-feed'>
+          <header class='post-header'>
+            <% if post.user.profile.icon.attached? %>
+              <%= image_tag post.user.thumbnail('40x40^', '40x40+0+0'), class: "img-circle"%>
+            <% else %>
+              <%= image_tag 'no-image.png', :size => '40x40', class: 'img-circle' %>
+            <% end %>
+            <b><%= link_to post.user.username, user_path(post.user), :style=>"color:black;" , class: 'username'%></b>
+            <%= link_to image_tag('setting.png', :size => '40x40'), user_path(post.user), class: 'pull-right' %>
+          </header>
+          <%= link_to image_tag(post.thumbnail('680x680^', '680x680+0+0')), post_path(post) if post.image.attached? %>
+          <div class='post-detail'>
+            <div class='post-action'>
+              <% if Favorite.exists?(user_id: current_user.id, post_id: post.id) %>
+                <%= link_to 'いいね解除', post_favorites_path(post), method: :delete %>
+              <% else %>
+                <%= link_to 'いいね', post_favorites_path(post), method: :post %>
+              <% end %>
+              <%= link_to 'コメント', '#' %>
+              <%= link_to 'DM', '#' %>
+              <% if Keep.exists?(user_id: current_user.id, post_id: post.id) %>
+                <%= link_to '保存解除', post_keeps_path(post), method: :delete , class: 'pull-right' %>
+              <% else %>
+                <%= link_to '保存', post_keeps_path(post), method: :post , class: 'pull-right' %>
+              <% end %>
+            </div>
+            <div class='post-info'>
+              <% if post.favorites.present? %>
+                <% if post.favorite_users.size > 1 %>
+                  <b><%= post.favorite_users.first.username %></b>
+                  、<b>他<%= (post.favorite_users.size - 1) %></b>人が「いいね！」しました
+                <% else %>
+                  <b><%= post.favorite_users.first.username %></b>が「いいね！」しました
+                <% end %>
+              <% end %>
+              <br><b><%= post.user.username %></b>
+              <br><%= post.content %>
+              <% post.comments.each do |comment| %>
+                <br><b><%= comment.user.username %></b>
+                <%= comment.content %>
+              <% end %>
+              <br><small><%= post.created_at.strftime('%Y年%m月%d日') %></small>
+            </div>
+            <div class='post-comment'>
+              <%= form_with(model: [post, @comment], local: true) do |f| %>
+                <%= f.text_field :content, style: "border: none", :size=>"60", :placeholder => 'コメントを追加...', class: 'comment-form' %>
+                <%= f.hidden_field :post_id, :value => post.id %>
+                <%= f.submit '投稿する', class: 'submit-btn btn-default btn-sm pull-right' %>
+              <% end %>
+            </div>
+          </div>
+        </article>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='col-md-4'>
+    <div class='sidebar-nav affix' >
+      <div id='new-post-link'>
+        <b><%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %></b>
+      </div>
+      <div class=profile>
+        <% if current_user.profile.icon.attached? %>
+          <%= image_tag current_user.thumbnail('50x50^', '50x50+0+0'), class: "img-circle"%>
+        <% else %>
+          <%= image_tag 'no-image.png', :size => '50x50', class: 'img-circle' %>
+        <% end %>
+        <div class='profile username'>
+          <b><%= link_to current_user.username, user_path(current_user), :style=>"color:black;" %></b>
+        </div>
+      </div>
+
+      <div class='users'>
+        <div>
+          <div class='user-menu'>フォロー中</div>
+          <div class='user-menu pull-right'>
+            <%= link_to '全て見る', following_path, :style=>"color:black;"%>
+          </div>
+        </div>
+        <% @following.each do |user| %>
+          <div class='user-list'>
+            <div class='user icon'>
+              <% if user.profile.icon.attached? %>
+                <%= image_tag user.thumbnail('40x40^', '40x40+0+0'), class: "img-circle"%>
+              <% else %>
+                <%= image_tag 'no-image.png', :size => '40x40', class: 'img-circle' %>
+              <% end %>
+            </div>
+            <div class='user username'>
+              <b><%= link_to user.username, user_path(user), :style=>"color:black;" %></b>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class='users'>
+        <div>
+          <div class='user-menu'>おすすめ</div>
+          <div class='user-menu pull-right'>
+            <%= link_to '全て見る', users_path, :style=>"color:black;"%>
+          </div>
+        </div>
+        <% @users.each do |user| %>
+          <div class='user-list'>
+            <div class='user icon'>
+              <% if user.profile.icon.attached? %>
+                <%= image_tag user.thumbnail('40x40^', '40x40+0+0'), class: "img-circle"%>
+              <% else %>
+                <%= image_tag 'no-image.png', :size => '40x40', class: 'img-circle' %>
+              <% end %>
+            </div>
+            <div class='user username'>
+              <b><%= link_to user.username, user_path(user), :style=>"color:black;" %></b>
+            </div>
+            <div class='user follwing'>
+              <% unless current_user == user %>
+                <% if current_user.following?(user) %>
+                  <%= form_with(scope: :relationship, url:relationship_path(user), method: :delete, local: true) do |f| %>
+                    <%= hidden_field_tag :followed_id, user.id %>
+                    <%= f.submit 'Unfollow', class: 'btn btn-default btn-sm' %>
+                  <% end %>
+                <% else %>
+                  <%= form_with(scope: :relationship, url:relationships_path, local: true) do |f| %>
+                    <%= hidden_field_tag :followed_id, user.id %>
+                    <%= f.submit 'Follow', class: 'btn btn-primary btn-sm' %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
