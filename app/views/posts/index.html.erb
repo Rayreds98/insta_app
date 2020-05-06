@@ -1,4 +1,39 @@
 <div class='row'>
+  <div class='ransack-form'>
+    <%= form_with(local: true) do |f| %>
+      <%= f.text_field :content, :size=>"30", :placeholder => ' 検索' %>
+    <% end %>
+  </div>
+  <div class='users-side'>
+    <% @users.each do |user| %>
+      <div class='col-md-2 user-side'>
+        <div class='icon'>
+          <% if user.profile.icon.attached? %>
+          <%= image_tag user.thumbnail('40x40^', '40x40+0+0'), class: "img-circle"%>
+        <% else %>
+          <%= image_tag 'no-image.png', :size => '40x40', class: 'img-circle' %>
+        <% end %>
+        </div>
+        <br><b><%= link_to user.username, user_path(user), :style=>"color:black;" %></b>
+        <% unless current_user == user %>
+          <% if current_user.following?(user) %>
+            <%= form_with(scope: :relationship, url:relationship_path(user), method: :delete, local: true) do |f| %>
+              <%= hidden_field_tag :followed_id, user.id %>
+              <%= f.submit 'Unfollow', class: 'btn btn-default btn-sm' %>
+            <% end %>
+          <% else %>
+            <%= form_with(scope: :relationship, url:relationships_path, local: true) do |f| %>
+              <%= hidden_field_tag :followed_id, user.id %>
+              <%= f.submit 'Follow', class: 'btn btn-primary btn-sm' %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class='col-md-1 users-button'>
+    <%= link_to '全てみる', users_path %>
+  </div>
   <% @posts.each do |post|%>
     <div class='col-md-4 post-image'>
       <%= link_to image_tag(post.thumbnail('320x320^', '320x320+0+0')), post_path(post) if post.image.attached? %>

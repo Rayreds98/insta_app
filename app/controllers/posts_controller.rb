@@ -3,12 +3,14 @@ class PostsController < ApplicationController
 
   def home
     @posts = Post.all.order('created_at desc')
-    @users = User.limit(5)
+    @users = User.where.not(id: current_user.id).sample(3)
+    @following = current_user.following.sample(3)
     @comment = Comment.new
   end
 
   def index
     @posts = Post.all
+    @users = User.where.not(id: current_user.id).sample(4)
   end
 
   def new
@@ -19,7 +21,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     if @post.save
       flash[:success] = 'Post created!'
-      redirect_to root_path
+      redirect_to home_path
     else
       flash.now[:error] = @post.errors.full_messages.to_sentence
       render 'new'
