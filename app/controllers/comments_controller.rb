@@ -3,7 +3,6 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @comment.user_id = current_user.id
-    binding.pry
     if @comment.save
       redirect_to home_path
     else
