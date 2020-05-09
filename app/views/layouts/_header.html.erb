@@ -13,7 +13,7 @@
           <% if current_user.profile.icon.attached? %>
             <li><%= link_to (image_tag current_user.thumbnail('25x25^', '25x25+0+0'), class: "img-circle"), user_path(current_user) %></li>
           <% else %>
-            <li><%= link_to (image_tag 'no-image.png', :size => '40x40', class: 'img-circle'), user_path(current_user) %></li>
+            <li><%= link_to (image_tag 'no-image.png', :size => '25x25', class: 'img-circle'), user_path(current_user) %></li>
           <% end %>
         <% else %>
           <li><%= link_to 'Search', posts_path %></li>
