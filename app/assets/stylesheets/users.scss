@@ -18,6 +18,7 @@
 
 .user-upper {
   display: inline-block;
+  margin-bottom: 10px;
 }
 
 .user-middle {
@@ -42,6 +43,9 @@
 
 .setting {
   margin-left: 20px;
+  .logout {
+    margin-left: 15px;
+  }
 }
 
 .profile-setting {
