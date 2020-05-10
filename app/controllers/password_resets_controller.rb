@@ -23,7 +23,6 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
-    binding.pry
     if params[:user][:password].empty?
       @user.errors.add(:password,  "can't be empty")
       render 'edit'

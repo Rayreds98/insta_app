@@ -8,7 +8,6 @@ class RelationshipsController < ApplicationController
       redirect_to users_path
     else
       flash.now[:error] = following.errors.full_messages.to_sentence
-      binding.pry
       redirect_to users_path
     end
   end

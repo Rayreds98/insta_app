@@ -11,6 +11,10 @@ class Post < ApplicationRecord
   validates :user_id, presence: true
   validates :content, length: {maximum: 2200}
 
+  scope :posts_all, -> {
+    select(:id, :content, :user_id, :created_at).order('created_at desc').includes(:user)
+  }
+
   def thumbnail(resize, crop)
     return self.image.variant(combine_options:{resize:resize,crop:crop,gravity: :center}).processed
   end
