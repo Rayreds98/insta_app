@@ -1,0 +1,27 @@
+<div class='row'>
+  <div class='col-md-12'>
+    <div class='posts-feed'>
+      <article class='post-feed'>
+        <div class='post-detail'>
+          <div class='post-info'>
+            <br><b><%= @post.user.username %></b>
+            <br><%= @post.content %>
+            <% @comments.each do |comment| %>
+              <br><b><%= comment.user.username %></b>
+              <%= comment.content %>
+            <% end %>
+            <br><small><%= @post.created_at.strftime('%Y年%m月%d日') %></small>
+          </div>
+          <div class='post-comment'>
+            <%= form_with(model: [@post, @comment], local: true) do |f| %>
+              <%= f.text_field :content, style: "border: none", :size=>"60", :placeholder => 'コメントを追加...', class: 'comment-form' %>
+              <%= f.hidden_field :post_id, :value => @post.id %>
+              <%= f.submit '投稿する', class: 'submit-btn btn-default btn-sm pull-right' %>
+            <% end %>
+          </div>
+          <%= link_to image_tag(@post.thumbnail('600x600^', '600x600+0+0')), post_path(@post) if @post.image.attached? %>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>

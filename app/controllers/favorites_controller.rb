@@ -4,12 +4,12 @@ class FavoritesController < ApplicationController
 
   def create
     favorite = current_user.favorites.create(post_id: params[:post_id])
-    redirect_to home_path
+    redirect_to root_path
   end
 
   def destroy
     favorite = current_user.favorites.find_by(post_id: params[:post_id]).destroy
-    redirect_to home_path
+    redirect_to root_path
   end
 
   private
