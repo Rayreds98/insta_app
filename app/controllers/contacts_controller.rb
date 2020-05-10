@@ -5,15 +5,22 @@ class ContactsController < ApplicationController
     @contacts = Contact.all
   end
 
-  def show
-  end
-
   def new
     @contact = Contact.new
   end
 
+  def show
+  end
+
   def create
-    @contact = Contact.new(parmas[contact_params])
+    @contact = Contact.new(contact_params)
+    if @contact.save
+      flash[:notice] = "Thank you for message"
+      redirect_to root_url
+    else
+      flash.now[:error] = @user.errors.full_messages.to_sentence
+      render 'new'
+    end
   end
 
   private

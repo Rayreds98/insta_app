@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'static_pages#about'
+  root 'posts#home'
 
   get 'home' => 'posts#home'
   get '/about' => 'static_pages#about'
@@ -7,13 +7,13 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
-  get '/password_resets/new' => 'password_resets#new'
-  get '/password_resets/edit' => 'password_resets#edit'
   get '/following' => 'users#following'
   get '/followers' => 'users#followers'
+  get '/password_resets/logged_in_edit' => 'password_resets#logged_in_edit'
+  patch '/password_resets/logged_in_update' => 'password_resets#logged_in_update'
 
   resources :profiles, only: [:create, :edit, :update]
-  resources :contacts, only: [:new, :index, :show]
+  resources :contacts, only: [:new, :create, :index, :show]
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :relationships, only: [:create, :destroy]
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   resources :posts do
     resource :favorites, only: [:create, :destroy]
     resource :keeps, only: [:create, :destroy]
-    resources :comments, only: [:create, :destroy]
+    resources :comments, only: [:index, :create, :destroy]
   end
 
   if Rails.env.development?

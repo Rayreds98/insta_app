@@ -1,12 +1,11 @@
 <div class='row'>
-  <div class='col-md-8 col-md-offset-1'>
+  <div class='col-md-10 col-md-offset-2'>
     <div id='profile'>
       <% if @user.profile.icon.attached? %>
         <%= image_tag @user.thumbnail('180x180^', '180x180+0+0'), class: "img-circle"%>
       <% else %>
         <%= image_tag 'no-image.png', :size => '180x180', class: 'img-circle' %>
       <% end %>
-      <div class=col-md-2></div>
       <div id='user-profile' class='col col-md-offset-1'>
         <div>
           <div class='user-upper'><h3><%= @user.username %></h3></div>
@@ -25,7 +24,18 @@
             <% end %>
           </div>
           <% else %>
-            <div class='user-upper setting'><p><%= link_to 'プロフィールを編集', edit_profile_path, class: 'btn btn-default btn-sm' %></p></div>
+            <div class='user-upper setting'>
+              <%= link_to 'プロフィールを編集', edit_profile_path, class: 'btn btn-default btn-sm' %>
+              <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= link_to '設定', root_path, :style=>"color:black;" %>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><%= link_to '登録情報', edit_user_path(@user) %></li>
+                <li><%= link_to 'パスワード変更', password_resets_logged_in_edit_path(@user) %></li>
+                <li><%= link_to 'ログアウト', logout_path, method: :delete, :style=>"color:black;" %></li>
+              </ul>
+            </div>
           <% end %>
         </div>
         <div>

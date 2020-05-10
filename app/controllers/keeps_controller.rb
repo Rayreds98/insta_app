@@ -8,12 +8,12 @@ class KeepsController < ApplicationController
 
   def create
     keep = current_user.keeps.create(post_id: params[:post_id])
-    redirect_to home_path
+    redirect_to root_path
   end
 
   def destroy
     keep= current_user.keeps.find_by(post_id: params[:post_id]).destroy
-    redirect_to home_path
+    redirect_to root_path
   end
 
   private

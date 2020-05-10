@@ -10,7 +10,33 @@
               <%= image_tag 'no-image.png', :size => '40x40', class: 'img-circle' %>
             <% end %>
             <b><%= link_to post.user.username, user_path(post.user), :style=>"color:black;" , class: 'username'%></b>
-            <%= link_to image_tag('setting.png', :size => '40x40'), user_path(post.user), class: 'pull-right' %>
+            <div class="btn-group pull-right">
+              <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= link_to image_tag('setting.png', :size => '35x35'), root_path, :style=>"color:black;" %>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><%= link_to '投稿詳細', post_path(post) %></li>
+                <li class="divider"></li>
+                <li>
+                  <% unless current_user == post.user %>
+                    <div class='user-upper follow'>
+                      <% if current_user.following?(post.user) %>
+                        <%= form_with(scope: :relationship, url:relationship_path(post.user), method: :delete, local: true) do |f| %>
+                          <%= hidden_field_tag :followed_id,post.user.id %>
+                          <%= f.submit 'Unfollow', class: 'btn btn-default btn-sm' %>
+                        <% end %>
+                      <% else %>
+                        <%= form_with(scope: :relationship, url:relationships_path, local: true) do |f| %>
+                          <%= hidden_field_tag :followed_id,post.user.id %>
+                          <%= f.submit 'Follow', class: 'btn btn-primary btn-sm' %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </li>
+              </ul>
+            </div>
           </header>
           <%= link_to image_tag(post.thumbnail('680x680^', '680x680+0+0')), post_path(post) if post.image.attached? %>
           <div class='post-detail'>
@@ -20,7 +46,7 @@
               <% else %>
                 <%= link_to 'いいね', post_favorites_path(post), method: :post %>
               <% end %>
-              <%= link_to 'コメント', '#' %>
+              <%= link_to 'コメント', post_comments_path(post) %>
               <%= link_to 'DM', '#' %>
               <% if Keep.exists?(user_id: current_user.id, post_id: post.id) %>
                 <%= link_to '保存解除', post_keeps_path(post), method: :delete , class: 'pull-right' %>
@@ -81,7 +107,7 @@
             <%= link_to '全て見る', following_path, :style=>"color:black;"%>
           </div>
         </div>
-        <% @following.each do |user| %>
+        <% @following.shuffle.first(3).each do |user| %>
           <div class='user-list'>
             <div class='user icon'>
               <% if user.profile.icon.attached? %>
@@ -96,7 +122,6 @@
           </div>
         <% end %>
         </div>
-
 
       <div class='users'>
         <div>
