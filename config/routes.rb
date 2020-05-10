@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
-  get '/password_resets/new' => 'password_resets#new'
-  get '/password_resets/edit' => 'password_resets#edit'
+  get '/password_resets/logged_in_edit' => 'password_resets#logged_in_edit'
+  patch '/password_resets/logged_in_update' => 'password_resets#logged_in_update'
   get '/following' => 'users#following'
   get '/followers' => 'users#followers'
 
